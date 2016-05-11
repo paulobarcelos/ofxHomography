@@ -23,23 +23,21 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	
 	// Define a point to be drawn in the warped space
 	ofPoint point(80,80);
 	
-	
 	ofPushMatrix();
-	glMultMatrixf(homography.getPtr());
+	ofMultMatrix(homography);
 	
 	ofSetColor(ofColor::yellow);
-	ofRect(0, 0, 100, 100);
+	ofDrawRectangle(0, 0, 100, 100);
 	
 	ofSetColor(ofColor::black);
-	ofCircle(50, 50, 30);
+	ofDrawCircle(50, 50, 30);
 	
 	// Draw a point in the warped space
 	ofSetColor(ofColor::red);
-	ofCircle(point, 1);
+	ofDrawCircle(point, 1);
 	
 	ofPopMatrix();
 	
