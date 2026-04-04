@@ -3,28 +3,32 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-	originalCorners[0] = glm::vec3(0, 0, 0);
-	originalCorners[1] = glm::vec3(100, 0, 0);
-	originalCorners[2] = glm::vec3(100, 100, 0);
-	originalCorners[3] = glm::vec3(0, 100, 0);
+	originalCorners = {{
+		{ 0.0f, 0.0f },
+		{ 100.0f, 0.0f },
+		{ 100.0f, 100.0f },
+		{ 0.0f, 100.0f }
+	}};
 	
-	distortedCorners[0] = glm::vec3(0, 0, 0);
-	distortedCorners[1] = glm::vec3(400, 0, 0);
-	distortedCorners[2] = glm::vec3(400, 400, 0);
-	distortedCorners[3] = glm::vec3(0, 400, 0);
+	distortedCorners = {{
+		{ 0.0f, 0.0f },
+		{ 400.0f, 0.0f },
+		{ 400.0f, 400.0f },
+		{ 0.0f, 400.0f }
+	}};
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
 
-	distortedCorners[2] = glm::vec3(mouseX, mouseY, 0);
+	distortedCorners[2] = glm::vec2(mouseX, mouseY);
 	homography = ofxHomography::findHomography(originalCorners, distortedCorners);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	// Define a point to be drawn in the warped space
-	glm::vec3 point(80,80,0);
+	glm::vec2 point(80, 80);
 	
 	ofPushMatrix();
 	ofMultMatrix(homography);
@@ -43,7 +47,7 @@ void ofApp::draw(){
 	
 	// Draw the screen coordinates of that point
 	ofSetColor(ofColor::black);
-	glm::vec3 pointInScreen = ofxHomography::toScreenCoordinates(point, homography);
+	glm::vec2 pointInScreen = ofxHomography::toScreenCoordinates(point, homography);
 	ofDrawBitmapString("Local coordinates " + ofToString(point) + "\nScreen coordinates " + ofToString(pointInScreen) , pointInScreen);
 	
 	

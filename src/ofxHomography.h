@@ -122,11 +122,11 @@ public:
 		return glm::make_mat4(homography);
 	}
 	
-	static glm::vec3 toScreenCoordinates(const glm::vec3& point, const glm::mat4& homography){
-		glm::vec4 original(point.x, point.y, point.z, 1.0);
+	static glm::vec2 toScreenCoordinates(const glm::vec2& point, const glm::mat4& homography){
+		glm::vec4 original(point.x, point.y, 0.0f, 1.0f);
 		glm::mat4 transposed = glm::transpose(homography);
 		glm::vec4 screen = transposed * original;
-		return { screen.x / screen.w, screen.y / screen.w, screen.z / screen.w };
+		return { screen.x / screen.w, screen.y / screen.w };
 	}
 
 };
