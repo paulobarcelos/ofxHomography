@@ -1,30 +1,30 @@
-#include "testApp.h"
+#include "ofApp.h"
 
 //--------------------------------------------------------------
-void testApp::setup(){
+void ofApp::setup(){
 
-	originalCorners[0].set(0, 0);
-	originalCorners[1].set(100, 0);
-	originalCorners[2].set(100, 100);
-	originalCorners[3].set(0, 100);
+	originalCorners[0] = glm::vec3(0, 0, 0);
+	originalCorners[1] = glm::vec3(100, 0, 0);
+	originalCorners[2] = glm::vec3(100, 100, 0);
+	originalCorners[3] = glm::vec3(0, 100, 0);
 	
-	distortedCorners[0].set(0, 0);
-	distortedCorners[1].set(400, 0);
-	distortedCorners[2].set(400, 400);
-	distortedCorners[3].set(0, 400);
+	distortedCorners[0] = glm::vec3(0, 0, 0);
+	distortedCorners[1] = glm::vec3(400, 0, 0);
+	distortedCorners[2] = glm::vec3(400, 400, 0);
+	distortedCorners[3] = glm::vec3(0, 400, 0);
 }
 
 //--------------------------------------------------------------
-void testApp::update(){
+void ofApp::update(){
 
-	distortedCorners[2].set(mouseX, mouseY);
+	distortedCorners[2] = glm::vec3(mouseX, mouseY, 0);
 	homography = ofxHomography::findHomography(originalCorners, distortedCorners);
 }
 
 //--------------------------------------------------------------
-void testApp::draw(){
+void ofApp::draw(){
 	// Define a point to be drawn in the warped space
-	ofPoint point(80,80);
+	glm::vec3 point(80,80,0);
 	
 	ofPushMatrix();
 	ofMultMatrix(homography);
@@ -43,7 +43,7 @@ void testApp::draw(){
 	
 	// Draw the screen coordinates of that point
 	ofSetColor(ofColor::black);
-	ofPoint pointInScreen = ofxHomography::toScreenCoordinates(point, homography);
+	glm::vec3 pointInScreen = ofxHomography::toScreenCoordinates(point, homography);
 	ofDrawBitmapString("Local coordinates " + ofToString(point) + "\nScreen coordinates " + ofToString(pointInScreen) , pointInScreen);
 	
 	
@@ -51,46 +51,46 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed(int key){
+void ofApp::keyPressed(int key){
 
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){
+void ofApp::keyReleased(int key){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseMoved(int x, int y ){
+void ofApp::mouseMoved(int x, int y ){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseDragged(int x, int y, int button){
+void ofApp::mouseDragged(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mousePressed(int x, int y, int button){
+void ofApp::mousePressed(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){
+void ofApp::mouseReleased(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void testApp::windowResized(int w, int h){
+void ofApp::windowResized(int w, int h){
 
 }
 
 //--------------------------------------------------------------
-void testApp::gotMessage(ofMessage msg){
+void ofApp::gotMessage(ofMessage msg){
 
 }
 
 //--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
 }

@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxHomography.h"
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
@@ -20,8 +20,8 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 	
-		ofPoint originalCorners[4];
-		ofPoint distortedCorners[4];
-		ofMatrix4x4 homography;
+		glm::vec3 originalCorners[4];
+		glm::vec3 distortedCorners[4];
+		glm::mat4 homography;
 		
 };
