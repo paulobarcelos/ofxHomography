@@ -16,10 +16,10 @@
 
 meta:
 	ADDON_NAME = ofxHomography
-	ADDON_DESCRIPTION = "Functions for finding the homography between two sets of points."
+	ADDON_DESCRIPTION = "Header-only helper for finding homography matrices between two sets of points."
 	ADDON_AUTHOR = @paulobarcelos
-	ADDON_TAGS = "homography" "points" "perspective" "perspective warp"
-	ADDON_URL = http://github.com/paulobarcelos/ofxHomography
+	ADDON_TAGS = "homography" "points" "perspective" "perspective warp" "projection mapping" "glm"
+	ADDON_URL = https://github.com/paulobarcelos/ofxHomography
 
 common:
 	# dependencies with other addons, a list of them separated by spaces
