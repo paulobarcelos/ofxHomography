@@ -10,6 +10,7 @@
 *.xcuserstate
 *.xcworkspace
 xcuserdata
+*/openFrameworks-Info.plist
 
 # Windows
 *.ini

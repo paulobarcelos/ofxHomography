@@ -1,6 +1,13 @@
 #pragma once
 
 #include "ofMain.h"
+#include <glm/gtc/type_ptr.hpp>
+
+#if __has_include("ofPoint.h") && __has_include("ofMatrix4x4.h")
+	#define OFXHOMOGRAPHY_HAS_LEGACY_OF_MATH 1
+#else
+	#define OFXHOMOGRAPHY_HAS_LEGACY_OF_MATH 0
+#endif
 
 class ofxHomography {
 public:
@@ -115,30 +122,29 @@ public:
 	}
 	
 	template <class T>
-	static ofMatrix4x4 findHomography(T src, T dst){
+	static glm::mat4 findHomography(T src, T dst){
 		float homography[16];
 		findHomography(src, dst, homography);
-		return ofMatrix4x4(homography);
+		return glm::make_mat4(homography);
 	}
 	
-	static ofPoint toScreenCoordinates(ofPoint point, ofMatrix4x4 homography){
-		ofVec4f original;
-		ofVec4f screen;
-		
-		original.x = point.x;
-		original.y = point.y;
-		original.z = point.z;
-		original.w = 1.0;
-		
-		ofMatrix4x4 transposed = ofMatrix4x4::getTransposedOf(homography);
-		
-		screen = transposed * original;
-		
-		screen.x = screen.x / screen.w;
-		screen.y = screen.y / screen.w;
-		screen.z = screen.z / screen.w;
-		
-		return ofPoint(screen.x,screen.y, screen.z);
+	static glm::vec3 toScreenCoordinates(const glm::vec3& point, const glm::mat4& homography){
+		glm::vec4 original(point.x, point.y, point.z, 1.0f);
+		glm::mat4 transposed = glm::transpose(homography);
+		glm::vec4 screen = transposed * original;
+		return { screen.x / screen.w, screen.y / screen.w, screen.z / screen.w };
 	}
+
+	static glm::vec2 toScreenCoordinates(const glm::vec2& point, const glm::mat4& homography){
+		glm::vec3 screen = toScreenCoordinates(glm::vec3(point, 0.0f), homography);
+		return { screen.x, screen.y };
+	}
+
+#if OFXHOMOGRAPHY_HAS_LEGACY_OF_MATH
+	static ofPoint toScreenCoordinates(const ofPoint& point, const ofMatrix4x4& homography){
+		glm::vec3 screen = toScreenCoordinates(glm::vec3(point.x, point.y, point.z), glm::mat4(homography));
+		return ofPoint(screen.x, screen.y, screen.z);
+	}
+#endif
 
 };

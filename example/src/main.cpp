@@ -1,5 +1,5 @@
 #include "ofMain.h"
-#include "testApp.h"
+#include "ofApp.h"
 
 //========================================================================
 int main( ){
@@ -8,5 +8,5 @@ int main( ){
     // settings.setGLVersion(3,2); // use programmable renderer
     ofCreateWindow(settings);
     
-    ofRunApp(new testApp());
+    ofRunApp(new ofApp());
 }

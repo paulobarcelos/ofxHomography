@@ -2,8 +2,9 @@
 
 #include "ofMain.h"
 #include "ofxHomography.h"
+#include <array>
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
@@ -20,8 +21,8 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 	
-		ofPoint originalCorners[4];
-		ofPoint distortedCorners[4];
-		ofMatrix4x4 homography;
+		std::array<glm::vec2, 4> originalCorners;
+		std::array<glm::vec2, 4> distortedCorners;
+		glm::mat4 homography;
 		
 };
